@@ -1,0 +1,60 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="Project_web4:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/Project_web4_war_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="Project_web4/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="Project_web4" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="file-copy" path="$USER_HOME$/Desktop/Lib/asm-4.2.jar" />
+          <element id="file-copy" path="$USER_HOME$/Desktop/Lib/gson-2.7.jar" />
+          <element id="file-copy" path="$USER_HOME$/Desktop/Lib/poi-3.17.jar" />
+          <element id="file-copy" path="$USER_HOME$/Desktop/Lib/cglib-3.1.jar" />
+          <element id="file-copy" path="$USER_HOME$/Desktop/Lib/ini4j-0.5.4.jar" />
+          <element id="file-copy" path="$USER_HOME$/Desktop/Lib/junit-3.8.1.jar" />
+          <element id="file-copy" path="$USER_HOME$/Desktop/Lib/okio-1.12.0.jar" />
+          <element id="file-copy" path="$USER_HOME$/Desktop/Lib/opencsv-3.3.jar" />
+          <element id="file-copy" path="$USER_HOME$/Desktop/Lib/guava-13.0.1.jar" />
+          <element id="file-copy" path="$USER_HOME$/Desktop/Lib/log4j-1.2.17.jar" />
+          <element id="file-copy" path="$USER_HOME$/Desktop/Lib/okhttp-2.7.5.jar" />
+          <element id="file-copy" path="$USER_HOME$/Desktop/Lib/args4j-2.0.16.jar" />
+          <element id="file-copy" path="$USER_HOME$/Desktop/Lib/ehcache-3.4.0.jar" />
+          <element id="file-copy" path="$USER_HOME$/Desktop/Lib/ezmorph-1.0.6.jar" />
+          <element id="file-copy" path="$USER_HOME$/Desktop/Lib/commons-io-2.4.jar" />
+          <element id="file-copy" path="$USER_HOME$/Desktop/Lib/curvesapi-1.04.jar" />
+          <element id="file-copy" path="$USER_HOME$/Desktop/Lib/httpcore-4.4.4.jar" />
+          <element id="file-copy" path="$USER_HOME$/Desktop/Lib/jaxb-api-2.3.0.jar" />
+          <element id="file-copy" path="$USER_HOME$/Desktop/Lib/poi-ooxml-3.17.jar" />
+          <element id="file-copy" path="$USER_HOME$/Desktop/Lib/stax-api-1.0.1.jar" />
+          <element id="file-copy" path="$USER_HOME$/Desktop/Lib/xmlbeans-2.6.0.jar" />
+          <element id="file-copy" path="$USER_HOME$/Desktop/Lib/easyexcel-2.2.4.jar" />
+          <element id="file-copy" path="$USER_HOME$/Desktop/Lib/slf4j-api-1.7.7.jar" />
+          <element id="file-copy" path="$USER_HOME$/Desktop/Lib/commons-lang-2.5.jar" />
+          <element id="file-copy" path="$USER_HOME$/Desktop/Lib/hamcrest-all-1.3.jar" />
+          <element id="file-copy" path="$USER_HOME$/Desktop/Lib/httpclient-4.5.2.jar" />
+          <element id="file-copy" path="$USER_HOME$/Desktop/Lib/similarity-1.1.6.jar" />
+          <element id="file-copy" path="$USER_HOME$/Desktop/Lib/commons-lang3-3.4.jar" />
+          <element id="file-copy" path="$USER_HOME$/Desktop/Lib/mockito-all-1.9.5.jar" />
+          <element id="file-copy" path="$USER_HOME$/Desktop/Lib/commons-codec-1.10.jar" />
+          <element id="file-copy" path="$USER_HOME$/Desktop/Lib/json-lib-2.4-jdk15.jar" />
+          <element id="file-copy" path="$USER_HOME$/Desktop/Lib/commons-logging-1.2.jar" />
+          <element id="file-copy" path="$USER_HOME$/Desktop/Lib/logback-core-1.2.10.jar" />
+          <element id="file-copy" path="$USER_HOME$/Desktop/Lib/hanlp-portable-1.3.4.jar" />
+          <element id="file-copy" path="$USER_HOME$/Desktop/Lib/jieba-analysis-1.0.2.jar" />
+          <element id="file-copy" path="$USER_HOME$/Desktop/Lib/slf4j-log4j12-1.7.25.jar" />
+          <element id="file-copy" path="$USER_HOME$/Desktop/Lib/logback-access-1.2.10.jar" />
+          <element id="file-copy" path="$USER_HOME$/Desktop/Lib/google-collections-1.0.jar" />
+          <element id="file-copy" path="$USER_HOME$/Desktop/Lib/logback-classic-1.2.10.jar" />
+          <element id="file-copy" path="$USER_HOME$/Desktop/Lib/poi-ooxml-schemas-3.17.jar" />
+          <element id="file-copy" path="$USER_HOME$/Desktop/Lib/commons-beanutils-1.8.0.jar" />
+          <element id="file-copy" path="$USER_HOME$/Desktop/Lib/commons-collections4-4.1.jar" />
+          <element id="file-copy" path="$USER_HOME$/Desktop/Lib/commons-collections-3.2.1.jar" />
+          <element id="file-copy" path="$USER_HOME$/Desktop/Lib/logging-interceptor-2.7.5.jar" />
+          <element id="file-copy" path="$USER_HOME$/Desktop/Lib/tencentcloud-sdk-java-3.1.340.jar" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>
