@@ -32,7 +32,8 @@ public class GetDataServlet5 extends HttpServlet {
 
 
 		try {
-			MainProcess.startProcess(ls, type);
+			MainProcess mainProcess = new MainProcess();
+			mainProcess.startProcess(ls, type);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
@@ -43,9 +44,9 @@ public class GetDataServlet5 extends HttpServlet {
 //		boolean hasSucceeded = directory.mkdir();
 //		System.out.println("创建文件夹结果：" + hasSucceeded);
 
-//		String ziyuan = "/file/" + name;
-//		System.out.println("tomcat ziyuan path:"+ziyuan);
-//		request.getRequestDispatcher(ziyuan).forward(request, response);
+		String ziyuan = "/file/" + name;
+		System.out.println("tomcat ziyuan path:"+ziyuan);
+		request.getRequestDispatcher(ziyuan).forward(request, response);
 
 	}
 

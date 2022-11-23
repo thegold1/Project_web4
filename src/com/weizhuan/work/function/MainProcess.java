@@ -1,7 +1,6 @@
 package com.weizhuan.work.function;
 
 import com.weizhuan.work.Main;
-import com.weizhuan.work.util.TxtUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -9,7 +8,8 @@ import java.util.*;
 
 public class MainProcess {
 
-    public static int xunhuanCount = 0;
+    public int mLoopTimes = 0;
+    public String mType = "";
 
     public static void main(String[] args) throws Exception {
 //        startProcess();
@@ -29,11 +29,13 @@ public class MainProcess {
         return random.nextInt(i);
     }
 
-    public static void startProcess(List<String> ls, String type) throws Exception {
-        if (xunhuanCount >= 4) {
+    public void startProcess(List<String> ls, String type) throws Exception {
+        mType = type;
+        if (mLoopTimes >= 4) {
             System.out.println("tomcat xunhuan time over 3 times");
             return;
         }
+        System.out.println("tomcat xunhuan time :"+ mLoopTimes);
 //        List<String> ls = new ArrayList<>();
 //        ls.add("母婴店怎么用短视频做推广111");
 //        ls.add("母婴店怎么用短视频做推广222rrr");
@@ -49,30 +51,55 @@ public class MainProcess {
         }
 
         // 0 生成文件夹
-        String path = "D:\\weizhuan\\test\\test_" + specialTag;
+        String qianzhuiPath = "D:\\weizhuan\\test\\test_" + specialTag;
 //        String path = "\\file\\test\\test_" + specialTag;
 //        String path = "D:\\Idea_WorkSpace\\Project_web4\\out\\artifacts\\Project_web4_war_exploded\\file\\test\\test_" + specialTag;
-        File directory = new File(path);
+        File directory = new File(qianzhuiPath);
         boolean hasSucceeded = directory.mkdir();
         System.out.println("创建文件夹结果：" + hasSucceeded);
 
-        String csvPath = path + File.separator + "test.csv";
+
 //        System.out.println("tomcat path:"+csvPath);
 //
 //        // 1 生成CSV 文件
-        TestCSV.startProcess(ls, path);
+        TestCSV.startProcess(ls, qianzhuiPath);
         // 2 走python脚本 生产 txt文件
-//        PiLiangShengCheng.startProcess(csvPath);
+        Set<String> notProductSet = pythonProduceTxt(qianzhuiPath,  needProduceSet);
+        while (notProductSet.size() != 0) {
+            if (mLoopTimes >= 4) {
+                break;
+            }
+            mLoopTimes++;
+            notProductSet = pythonProduceTxt(qianzhuiPath, notProductSet);
+        }
+        if (mLoopTimes >= 4 && notProductSet.size() != 0) {
+            // 准备退出,说明生成失败
+            System.out.println("tomcat mLoopTimes >= 4 notProductSet.size() != 0 ");
+        }
+
+        System.out.println("tomcat out of circle");
+        String youhuaPath = qianzhuiPath +"\\test";
+          // 3 查重和优化代码
+        Main.startProcess(youhuaPath);
+
+          // 4 打包成zip文件
+        ZipUtils.startProcess(youhuaPath);
+    }
+
+    public Set<String> pythonProduceTxt(String path, Set<String> needProduceSet) throws InterruptedException, IOException {
+        String csvPath = path + File.separator + "test.csv";
+        PiLiangShengCheng.startProcess(csvPath);
 
         String youhuaPath = path +"\\test";
 
         System.out.println("tomcat start");
-        boolean flag = true;
-        List<String> notProductList = new ArrayList<>();
-        List<String> haveProductList = new ArrayList<>();
+
+        Set<String> notProductSet = new HashSet<>();
+        Set<String> haveProductSet = new HashSet<>();
         int times = 0;
+        boolean produceFlag = true;
         while (true) {
-            Thread.sleep(10000);
+            Thread.sleep(50000);
             File file = new File(youhuaPath);
             if (file == null) {
                 continue;
@@ -81,47 +108,36 @@ public class MainProcess {
 
             for (int i = 0; i < files.length; i++) {
                 String fileName = files[0].getName();
-                if (needProduceSet.contains(fileName)) {
-                    haveProductList.add(fileName);
-                    System.out.println("tomcat contain name:"+fileName);
+                haveProductSet.add(fileName);
+            }
+            for (String s:needProduceSet) {
+                if (haveProductSet.contains(s)) {
+
                 } else {
-                    notProductList.add(fileName);
-                    System.out.println("tomcat not contain name:"+fileName);
+                    produceFlag = false;
                 }
             }
-            if (notProductList.size() != 0) {
-//                startProcess(notProductList, type);
-                flag = false;
-                xunhuanCount++;
+            if (produceFlag) {
+                System.out.println("tomcat success");
                 break;
             } else {
-                if (files.length == ls.size()) {
-                    System.out.println("tomcat success");
+                produceFlag = true;
+                System.out.println("tomcat failure");
+                if (times >= 3) {
+                    System.out.println("tomcat times >= 3");
                     break;
-                } else {
-                    if (times >= 2) {
-                        break;
-                    }
-                    times++;
-                    System.out.println("tomcat failure");
                 }
+                times++;
             }
         }
         System.out.println("tomcat end");
         for (String s: needProduceSet) {
-            System.out.println("tomcat set data:"+s);
+            if (haveProductSet.contains(s)) {
+
+            } else {
+                notProductSet.add(s);
+            }
         }
-//        if (!flag) {
-//            System.out.println("tomcat restart");
-//            startProcess(notProductList, type);
-//        } else {
-//            System.out.println("tomcat not restart");
-//        }
-//
-//          // 3 查重和优化代码
-//        Main.startProcess(youhuaPath);
-//
-//          // 4 打包成zip文件
-//        ZipUtils.startProcess(youhuaPath);
+        return notProductSet;
     }
 }
