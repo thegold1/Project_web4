@@ -45,7 +45,7 @@ public class MainProcess {
 //        ls.add("母婴店怎么用短视频做推广222rrr");
 //        ls.add("母婴店怎么用短视频做推广333aaa");
 
-        String specialTag = "8009";
+        String specialTag = "1237";
 //        String specialTag = get4RandomsString();
         List<String> needProduceList = new ArrayList<>();
         Set<String> needProduceSet = new HashSet<>();

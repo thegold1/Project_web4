@@ -11,8 +11,6 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
-import java.util.concurrent.ExecutorService;
 
 // this awesome project was created by th
 public class Main {
@@ -22,8 +20,7 @@ public class Main {
     public static void startProcess(String path) throws Exception {
         try {
             TxtUtils.mReadPaperPath = path;
-            SimhashUtil.SHENG_CHENG_PATH = path;
-            SimhashUtil.SHENG_CHENG_PATH_word2 = path;
+            SimhashUtil.PROCESS_DIR_PATH = path;
             start();
         } catch (Exception e) {
             e.printStackTrace();

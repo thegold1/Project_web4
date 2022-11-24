@@ -2,9 +2,7 @@ package com.weizhuan.work.simhash;
 
 import com.weizhuan.work.function.Simhash;
 import com.weizhuan.work.function.ZipUtils;
-import com.weizhuan.work.servlet.GetDataServlet2;
 //import org.apache.commons.io.FileUtils;
-import com.weizhuan.work.servlet.GetDataServlet4;
 import com.weizhuan.work.servlet.GetDataServlet5;
 import com.weizhuan.work.util.FileUtils;
 
@@ -29,14 +27,12 @@ public class SimhashUtil {
 	public static HashMap<String, List<List<String>>> mPagerSimMap = new HashMap<>();
 
 	public static String QIAN_ZHUI = "D:\\weizhuan\\去重\\";
-	public static String SHU_JU_KU_PATH = QIAN_ZHUI + "缓存\\数据库";
-	public static String SHENG_CHENG_PATH = QIAN_ZHUI + "缓存\\生成";
-	public static String SHENG_CHENG_PATH_word = "";
-	public static String SHENG_CHENG_PATH_word2 = "";
+	public static String PROCESS_DIR_PATH = QIAN_ZHUI + "缓存\\生成";
 
 	public static boolean mSwitch = false;
 	public static String USED_PATH = QIAN_ZHUI + "已经使用";
-	public static String ALL_FILE_PATH = QIAN_ZHUI + "缓存\\all_file_name.txt";
+	// 本次处理文件夹里面的所有txt文本
+	public static String PROCESS_DIR_TXT_PATH = QIAN_ZHUI + "缓存\\all_file_name.txt";
 	public static String SIM_RESULT_PATH = QIAN_ZHUI + "缓存\\sim_result.txt";
 	public static String DELETE_RESULT_PATH = QIAN_ZHUI + "缓存\\delete_result.txt";
 	public static String MERGE_MARK_PATTERN = ".,!?:;.；：？！，。、“”(),";
@@ -49,7 +45,7 @@ public class SimhashUtil {
 	public static Set<String> usedSet = new HashSet<>();
 
 	public static String SIM_HASH_CONTENT_PATH = QIAN_ZHUI + "缓存\\simhashContent.txt";
-
+	// 已经使用的文件夹，数据已经被缓存
 	public static String DATA_DIR_PATH = QIAN_ZHUI + "缓存\\data_dir.txt";
 
 	public static String PAPER_LEN_PATH = QIAN_ZHUI + "缓存\\paper_len.txt";
@@ -137,14 +133,10 @@ public class SimhashUtil {
 
 
 	public static void startRemoveDuplicate() throws Exception {
-
 		readContentPathMapData();
 		List<String> contents = readSimHashContentMap();
 		readUsedDir();
 		readPaperLen();
-//		File file = new File(SHU_JU_KU_PATH);
-//		File[] files = file.listFiles();
-//		int len = files.length;
 		List<String> ls = new ArrayList<>();
 		int sum = 0;
 		StringBuilder sb = new StringBuilder();
@@ -208,18 +200,17 @@ public class SimhashUtil {
 		}
 
 
-		System.out.println("tomcat path~~~~:"+SHENG_CHENG_PATH);
-		File file2 = new File(SHENG_CHENG_PATH);
-		File[] files2 = file2.listFiles();
-		int len2 = files2.length;
-		List<String> allDataList = new ArrayList<>();
+		File processDirFile = new File(PROCESS_DIR_PATH);
+		File[] processDirFiles = processDirFile.listFiles();
+		int processDirFilesLen = processDirFiles.length;
+		List<String> processDirFileList = new ArrayList<>();
 
-		for (int i = 0; i < len2; i++) {
+		for (int i = 0; i < processDirFilesLen; i++) {
 			sb.setLength(0);
-			String file_path = files2[i].toString();
-			allDataList.add(file_path);
+			String processDirFilePath = processDirFiles[i].toString();
+			processDirFileList.add(processDirFilePath);
 
-			File file = new File(file_path);
+			File file = new File(processDirFilePath);
 			if (!file.exists()) {
 				continue;
 			}
@@ -243,16 +234,16 @@ public class SimhashUtil {
 				sb.append(s);
 				if (mContentPathMap.containsKey(s)) {
 					List<String> l = mContentPathMap.get(s);
-					l.add(file_path);
+					l.add(processDirFilePath);
 					mContentPathMap.put(s, l);
 				} else {
 					List<String> l = new ArrayList<>();
-					l.add(file_path);
+					l.add(processDirFilePath);
 					mContentPathMap.put(s, l);
 				}
 				sum++;
 			}
-			paperLenMap.put(file_path, new Integer(sb.toString().length()));
+			paperLenMap.put(processDirFilePath, new Integer(sb.toString().length()));
 		}
 
 		List<String> paperLenList = new ArrayList<>();
@@ -264,7 +255,7 @@ public class SimhashUtil {
 		}
 		insertListToPath2(PAPER_LEN_PATH, paperLenList);
 
-		insertListToPath2(ALL_FILE_PATH, allDataList);
+		insertListToPath2(PROCESS_DIR_TXT_PATH, processDirFileList);
 		System.out.println("tomcat sum:"+sum);
 
 		// 默认是第二个参数是3
@@ -379,13 +370,12 @@ public class SimhashUtil {
 			simHashContentList.add(simHashValue);
 			simHashContentList.add(content);
 		}
-//		String path333 = "D:\\weizhuan_web\\simhashContent.txt";
+
 		insertListToPath2(SIM_HASH_CONTENT_PATH, simHashContentList);
 
-//		SHENG_CHENG_PATH;
 		List<String> usedList = new ArrayList<>();
 
-		copySourcePathDir(SHENG_CHENG_PATH);
+		copySourcePathDir(PROCESS_DIR_PATH);
 
 		for (String s: usedSet) {
 			usedList.add(s);
@@ -443,7 +433,6 @@ public class SimhashUtil {
 			if (!file.exists()) {
 				return;
 			}
-//			List<String> list1 = FileUtils.readLines(new File(DATA_DIR_PATH));
 			List<String> list1 = FileUtils.readLines(file);
 			for (String s: list1) {
 				usedSet.add(s);
@@ -453,13 +442,17 @@ public class SimhashUtil {
 		}
 	}
 
+	//	在头条号上想获得头条的推荐量首先你的内容必须是垂直且有价值的这样被推荐的几率才会更大
+	//	2
+	//	D:\weizhuan\test\test_7897\test\抖音运营.txt
+	//	D:\weizhuan\test\test_7897\test\自媒体.txt
+	// 第一行表示 一行文本内容，第二行表示拥有这行内容的文本数量，第三、四行表示拥有第一行文本内容的文章标题
 	public static void readContentPathMapData () throws IOException {
 		try {
 			File file = new File(CONTENT_PATH);
 			if (!file.exists()) {
 				return;
 			}
-//			List<String> list1 = FileUtils.readLines(new File(CONTENT_PATH));
 			List<String> list1 = FileUtils.readLines(file);
 
 			for (int i = 0; i < list1.size(); i++) {
@@ -493,7 +486,7 @@ public class SimhashUtil {
 	public static void deleteList() {
 		for (int i = 0; i < mDeleteList.size(); i++) {
 			String path = mDeleteList.get(i);
-			if (path.contains(SHENG_CHENG_PATH_word2)) {
+			if (path.contains(PROCESS_DIR_PATH)) {
 				File myObj = new File(path);
 				myObj.delete();
 			}
@@ -515,7 +508,7 @@ public class SimhashUtil {
 			int len1 = sb.toString().length();
 
 			int totalLen = paperLenMap.get(title);
-			if (len1 > totalLen * 2 / 10 && title.contains(SHENG_CHENG_PATH_word2)) {
+			if (len1 > totalLen * 2 / 10 && title.contains(PROCESS_DIR_PATH)) {
 				System.out.println("tomcat title~~~~:"+title);
 				int ii = totalLen * 2 / 10;
 				mDeleteList.add(title);
@@ -560,7 +553,7 @@ public class SimhashUtil {
 
 			for (Map.Entry<String, List<List<String>>> entry : simMap.entrySet()) {
 				String title = entry.getKey();
-				if (!title.contains(SHENG_CHENG_PATH_word2)) {
+				if (!title.contains(PROCESS_DIR_PATH)) {
 					continue;
 				}
 				out.write(title);

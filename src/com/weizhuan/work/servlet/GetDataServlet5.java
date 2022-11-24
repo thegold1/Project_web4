@@ -24,7 +24,6 @@ public class GetDataServlet5 extends HttpServlet {
 		List<String> ls = new ArrayList<>();
 		String[] datas = data.split("~");
 		for (String s: datas) {
-//			System.out.println("tomcat s:"+s);
 			ls.add(s);
 		}
 		String type = new String(request.getParameter("type"));
@@ -45,6 +44,7 @@ public class GetDataServlet5 extends HttpServlet {
 //		System.out.println("创建文件夹结果：" + hasSucceeded);
 
 		String ziyuan = "/file/" + name;
+//		String ziyuan = name;
 		System.out.println("tomcat ziyuan path:"+ziyuan);
 		request.getRequestDispatcher(ziyuan).forward(request, response);
 
