@@ -12,7 +12,11 @@ public class MainProcess {
     public String mType = "";
 
     public static void main(String[] args) throws Exception {
-//        startProcess();
+        List<String> ls = new ArrayList<>();
+        ls.add("自媒体");
+        ls.add("抖音运营");
+        MainProcess mainProcess = new MainProcess();
+        mainProcess.startProcess(ls, "1");
     }
 
     public static String get4RandomsString() {
@@ -41,7 +45,7 @@ public class MainProcess {
 //        ls.add("母婴店怎么用短视频做推广222rrr");
 //        ls.add("母婴店怎么用短视频做推广333aaa");
 
-        String specialTag = "9527";
+        String specialTag = "8009";
 //        String specialTag = get4RandomsString();
         List<String> needProduceList = new ArrayList<>();
         Set<String> needProduceSet = new HashSet<>();
@@ -58,11 +62,10 @@ public class MainProcess {
         boolean hasSucceeded = directory.mkdir();
         System.out.println("创建文件夹结果：" + hasSucceeded);
 
-
 //        System.out.println("tomcat path:"+csvPath);
 //
 //        // 1 生成CSV 文件
-        TestCSV.startProcess(ls, qianzhuiPath);
+//        TestCSV.startProcess(ls, qianzhuiPath);
         // 2 走python脚本 生产 txt文件
         Set<String> notProductSet = pythonProduceTxt(qianzhuiPath,  needProduceSet);
         while (notProductSet.size() != 0) {
@@ -88,7 +91,7 @@ public class MainProcess {
 
     public Set<String> pythonProduceTxt(String path, Set<String> needProduceSet) throws InterruptedException, IOException {
         String csvPath = path + File.separator + "test.csv";
-        PiLiangShengCheng.startProcess(csvPath);
+//        PiLiangShengCheng.startProcess(csvPath);
 
         String youhuaPath = path +"\\test";
 
@@ -99,7 +102,8 @@ public class MainProcess {
         int times = 0;
         boolean produceFlag = true;
         while (true) {
-            Thread.sleep(50000);
+            Thread.sleep(5000);
+//            Thread.sleep(30000);
             File file = new File(youhuaPath);
             if (file == null) {
                 continue;
@@ -107,7 +111,7 @@ public class MainProcess {
             File[] files = file.listFiles();
 
             for (int i = 0; i < files.length; i++) {
-                String fileName = files[0].getName();
+                String fileName = files[i].getName();
                 haveProductSet.add(fileName);
             }
             for (String s:needProduceSet) {

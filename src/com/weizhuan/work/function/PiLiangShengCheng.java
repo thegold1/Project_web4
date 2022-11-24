@@ -22,8 +22,8 @@ public class PiLiangShengCheng {
 
 	public static void testExecCmd(String path) throws IOException, InterruptedException {
 //		String cmd = "cmd /c start /b C:/Users/Administrator/Desktop/hello2.bat";
-//		String cmd = "cmd /c start C:/Users/Administrator/Desktop/hello5.bat ";
-		String cmd = "cmd /c start /b C:/Users/Administrator/Desktop/hello5.bat ";
+		String cmd = "cmd /c start C:/Users/Administrator/Desktop/hello5.bat ";
+//		String cmd = "cmd /c start /b C:/Users/Administrator/Desktop/hello5.bat ";
 //		System.out.println("tomcat cmd:"+cmd);
 
 		String newPath = produceNewPath(path);

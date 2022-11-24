@@ -149,40 +149,6 @@ public class SimhashUtil {
 		int sum = 0;
 		StringBuilder sb = new StringBuilder();
 
-//		for (int i = 0; i < len; i++) {
-//			sb.setLength(0);
-//			String file_path = files[i].toString();
-//			List<String> lss = FileUtils.readLines(new File(file_path));
-//
-//			for (int j = 0; j < lss.size(); j++) {
-//				String s = lss.get(j);
-//				s = removeSymbol(s);
-//				lss.set(j, s);
-//			}
-//
-//			for (int j = 0; j < lss.size(); j++) {
-//				String s = lss.get(j);
-//				if (s.length() <= 10) {
-//					lss.remove(j);
-//					j--;
-//				}
-//			}
-//			ls.addAll(lss);
-//			for (String s: lss) {
-//				sb.append(s);
-//				if (mContentPathMap.containsKey(s)) {
-//					List<String> l = mContentPathMap.get(s);
-//					l.add(file_path);
-//					mContentPathMap.put(s, l);
-//				} else {
-//					List<String> l = new ArrayList<>();
-//					l.add(file_path);
-//					mContentPathMap.put(s, l);
-//				}
-//				sum++;
-//			}
-//			paperLenMap.put(file_path, new Integer(sb.toString().length()));
-//		}
 		ls.addAll(contents);
 
 		File usedFile = new File(USED_PATH);
@@ -473,7 +439,7 @@ public class SimhashUtil {
 
 	public static void readUsedDir() throws IOException {
 		try {
-			File file = new File(SIM_HASH_CONTENT_PATH);
+			File file = new File(DATA_DIR_PATH);
 			if (!file.exists()) {
 				return;
 			}
