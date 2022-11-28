@@ -37,4 +37,26 @@ public class FileUtils {
         return re;
     }
 
+    public static String readOnlyOneLine(File file) {
+        BufferedReader br = null;
+        String line = "";
+        try {
+            InputStreamReader reader = new InputStreamReader(new FileInputStream(file));
+            br = new BufferedReader(reader);
+            line = br.readLine();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "";
+        } finally {
+            if(br != null){
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return line;
+    }
+
 }
