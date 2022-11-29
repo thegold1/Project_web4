@@ -152,13 +152,11 @@ public class SimhashUtilMain {
 		}
 	}
 
-
 	public static void main(String[] args) throws Exception {
 		// todo 读取文件夹里面数据
 		String dirPath = "D:\\weizhuan\\去重\\处理";
 
-
-		while(true) {
+		while (true) {
 			System.out.println("tomcat sleep start");
 			try {
 				Thread.sleep(30000);
@@ -170,10 +168,6 @@ public class SimhashUtilMain {
 			List<String> processPathList = readDirProcessPath(dirPath);
 			processPathDuplicate(processPathList);
 		}
-
-
-
-
 
 //		readPaperPath(ls.get(0));
 

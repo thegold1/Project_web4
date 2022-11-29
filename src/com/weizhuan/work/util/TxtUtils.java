@@ -44,6 +44,38 @@ public class TxtUtils {
         return false;
     }
 
+    public static void readPaperPath(String path) {
+        try {
+            File file = new File(path);
+            ArrayList<String> ls = new ArrayList<String>();
+
+            // if file doesn't exist, then create it
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+
+            if ("".equals(TxtUtils.mCharSet)) {
+                TxtUtils.mCharSet = TxtUtils.getFileCharset(new File(path));
+            }
+
+            InputStreamReader reader = new InputStreamReader(
+                    new FileInputStream(file), TxtUtils.mCharSet);
+
+            BufferedReader br = new BufferedReader(reader);
+
+            String line = "";
+            line = br.readLine();
+            if (line != null) {
+                ls.add(line);
+//                MAX_LEN = Integer.parseInt(line);
+                mReadPaperPath = line;
+            }
+            br.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static String removeStringCommonWord(String s) {
         if (s == null || "".equals(s)) {
             return s;

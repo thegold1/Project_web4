@@ -20,7 +20,7 @@ public class Main {
     public static void startProcess(String path) throws Exception {
         try {
             TxtUtils.mReadPaperPath = path;
-            SimhashUtil.PROCESS_DIR_PATH = path;
+//            SimhashUtil.PROCESS_DIR_PATH = path;
             start();
         } catch (Exception e) {
             e.printStackTrace();
@@ -48,20 +48,16 @@ public class Main {
         PicUtils.findPicDirList();
         PicUtils.readInsertPicPath(PicUtils.READ_PIC_PATH);
 
-        if (SimhashUtil.mSwitch) {
-            SimhashUtil.startRemoveDuplicate();
-        }
+        File file = new File(TxtUtils.mReadPaperPath);
+        File[] files = file.listFiles();
+        int len = files.length;
+        for (int j = 0; j < len; j++) {
+            String file_path = files[j].toString();
+            System.out.println("tomcat 一共："+len+"篇，当前计数:"+count+"，标题:"+file_path);
+            count++;
+            dealPaper(file_path);
 
-//        File file = new File(TxtUtils.mReadPaperPath);
-//        File[] files = file.listFiles();
-//        int len = files.length;
-//        for (int j = 0; j < len; j++) {
-//            String file_path = files[j].toString();
-//            System.out.println("tomcat 一共："+len+"篇，当前计数:"+count+"，标题:"+file_path);
-//            count++;
-//            dealPaper(file_path);
-//
-//        }
+        }
 //        System.out.println("tomcat 优化完毕");
     }
 
