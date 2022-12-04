@@ -12,17 +12,28 @@ import java.io.*;
 
 public class PiLiangShengCheng {
 
-	public static void startProcess(String path) throws IOException, InterruptedException {
-		testExecCmd(path);
+	public static void startProcess(String path, String type) throws IOException, InterruptedException {
+		testExecCmd(path,type);
 	}
 
 //	public static void main(String[] args) throws IOException, InterruptedException {
 //		testExecCmd();
 //	}
 
-	public static void testExecCmd(String path) throws IOException, InterruptedException {
+	public static void testExecCmd(String path, String type) throws IOException, InterruptedException {
 //		String cmd = "cmd /c start /b C:/Users/Administrator/Desktop/hello2.bat";
-		String cmd = "cmd /c start C:/Users/Administrator/Desktop/hello5.bat ";
+//		String cmd = "cmd /c start C:/Users/Administrator/Desktop/hello5.bat ";
+		String cmd = "";
+		if ("自媒体".equals(type)) {
+			cmd = "cmd /c start D:/weizhuan_web/zimeiti.bat ";
+			System.out.println("tomcat 自媒体");
+		} else if ("短链".equals("type")) {
+			cmd = "cmd /c start D:/weizhuan_web/duanlian.bat ";
+			System.out.println("tomcat 短链");
+		} else {
+			cmd = "cmd /c start D:/weizhuan_web/zimeiti.bat ";
+		}
+//		String cmd = "cmd /c start C:/Users/Administrator/Desktop/hello5.bat ";
 //		String cmd = "cmd /c start /b C:/Users/Administrator/Desktop/hello5.bat ";
 //		System.out.println("tomcat cmd:"+cmd);
 

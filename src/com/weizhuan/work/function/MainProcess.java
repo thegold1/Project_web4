@@ -91,13 +91,13 @@ public class MainProcess {
 //        // 1 生成CSV 文件
         TestCSV.startProcess(ls, mQianZhuiPath);
         // 2 走python脚本 生产 txt文件
-        Set<String> notProductSet = pythonProduceTxt(mQianZhuiPath,  needProduceSet);
+        Set<String> notProductSet = pythonProduceTxt(mQianZhuiPath,  needProduceSet, type);
         while (notProductSet.size() != 0) {
             if (mLoopTimes >= 4) {
                 break;
             }
             mLoopTimes++;
-            notProductSet = pythonProduceTxt(mQianZhuiPath, notProductSet);
+            notProductSet = pythonProduceTxt(mQianZhuiPath, notProductSet, type);
         }
         if (mLoopTimes >= 4 && notProductSet.size() != 0) {
             // 准备退出,说明生成失败
@@ -372,9 +372,9 @@ public class MainProcess {
         }
     }
 
-    public Set<String> pythonProduceTxt(String path, Set<String> needProduceSet) throws InterruptedException, IOException {
+    public Set<String> pythonProduceTxt(String path, Set<String> needProduceSet, String type) throws InterruptedException, IOException {
         String csvPath = path + File.separator + "test.csv";
-        PiLiangShengCheng.startProcess(csvPath);
+        PiLiangShengCheng.startProcess(csvPath, type);
 
         String youhuaPath = path +"\\test";
 
