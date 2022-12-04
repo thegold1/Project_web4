@@ -1,4 +1,0 @@
-first_part=0
-last_word=0
-other_pic=0
-去重=1
