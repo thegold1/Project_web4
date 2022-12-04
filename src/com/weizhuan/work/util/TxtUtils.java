@@ -11,7 +11,7 @@ import java.util.List;
 // author tanghao1
 public class TxtUtils {
 
-    public static String WEI_ZHUAN_PREFIX = "D:\\weizhuan\\";
+    public static String WEI_ZHUAN_PREFIX = "D:\\weizhuan_web\\";
     public static String PAPER_PATH_CONFIG = WEI_ZHUAN_PREFIX + "config\\paper_path_config.txt";
     public static String mReadPaperPath = new String(WEI_ZHUAN_PREFIX+"test");
     public static String mCharSet = new String("");

@@ -52,7 +52,7 @@ public class GetDataServlet3 extends HttpServlet {
 //		String ziyuan = "/file/" + name;
 //		request.getRequestDispatcher(ziyuan).forward(request, response);
 
-		String path = "D:\\weizhuan\\去重\\缓存\\contentpath.txt";
+		String path = "D:\\weizhuan_web\\去重\\缓存\\contentpath.txt";
 //		String path = "D:\\Idea_WorkSpace\\Project_web4\\out\\artifacts\\Project_web4_war_exploded\\file\\test\\contentpath.txt";
 //		String path = "\\file\\contentpath.txt";
 //		String path2 = "/file/contentpath.txt";

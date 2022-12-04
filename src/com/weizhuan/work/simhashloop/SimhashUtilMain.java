@@ -17,7 +17,7 @@ import java.util.*;
  * 
  */
 public class SimhashUtilMain {
-	public static String QIAN_ZHUI = "D:\\weizhuan\\去重\\";
+	public static String QIAN_ZHUI = "D:\\weizhuan_web\\去重\\";
 	public static String PROCESS_DIR_PATH = QIAN_ZHUI + "缓存\\生成";
 	public static HashMap<Long, String> mSimHashContentMap = new HashMap<>();
 	public static HashMap<String, List<String>> mContentPathMap = new HashMap<>();
@@ -154,7 +154,7 @@ public class SimhashUtilMain {
 
 	public static void main(String[] args) throws Exception {
 		// todo 读取文件夹里面数据
-		String dirPath = "D:\\weizhuan\\去重\\处理";
+		String dirPath = "D:\\weizhuan_web\\去重\\处理";
 
 		while (true) {
 //			System.out.println("tomcat sleep start");

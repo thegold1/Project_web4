@@ -65,7 +65,7 @@ public class GetDataServlet2 extends HttpServlet {
 //		String ziyuan = "/file/" + name;
 //		request.getRequestDispatcher(ziyuan).forward(request, response);
 
-		String path2 = "D:\\weizhuan\\去重\\缓存\\contentpath.txt";
+		String path2 = "D:\\weizhuan_web\\去重\\缓存\\contentpath.txt";
 //		String path2 = "D:\\Idea_WorkSpace\\Project_web4\\out\\artifacts\\Project_web4_war_exploded\\file\\test\\contentpath.txt";
 //		String path2 = "\\file\\contentpath.txt";
 		File file = new File(path2);

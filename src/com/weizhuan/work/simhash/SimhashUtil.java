@@ -26,7 +26,7 @@ public class SimhashUtil {
 	// 段落已经去重
 	public static HashMap<String, List<List<String>>> mPagerSimMap = new HashMap<>();
 
-	public static String QIAN_ZHUI = "D:\\weizhuan\\去重\\";
+	public static String QIAN_ZHUI = "D:\\weizhuan_web\\去重\\";
 	public static String PROCESS_DIR_PATH = QIAN_ZHUI + "缓存\\生成";
 
 	public static boolean mSwitch = false;
@@ -51,7 +51,6 @@ public class SimhashUtil {
 	public static String PAPER_LEN_PATH = QIAN_ZHUI + "缓存\\paper_len.txt";
 
 	public static void copySourcePathDir(String sourcePath) throws Exception {
-//		String sourcePath =  "D:\\weizhuan_web\\生成";
 		String[] tmp = sourcePath.split("\\\\");
 		String target = tmp[tmp.length - 1];
 		String lastWord = target;

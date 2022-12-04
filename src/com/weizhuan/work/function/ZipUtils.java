@@ -27,7 +27,7 @@ public class ZipUtils {
 //		File sourceFile = new File("D:/test/testFile");
 //        File sourceFile = new File("D:/weizhuan/test");
 //        File sourceFile = new File("D:/weizhuan/test/test_9527/test");
-        File sourceFile = new File("D:\\weizhuan\\test\\test_9527\\test");
+        File sourceFile = new File("D:\\weizhuan_web\\test\\test_9527\\test");
         try {
             fileToZip(sourceFile);
         } catch (Exception e) {

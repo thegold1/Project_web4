@@ -79,7 +79,7 @@ public class MainProcess {
         }
 
         // 0 生成文件夹
-        mQianZhuiPath = "D:\\weizhuan\\test\\test_" + specialTag;
+        mQianZhuiPath = "D:\\weizhuan_web\\test\\test_" + specialTag;
 //        String path = "\\file\\test\\test_" + specialTag;
 //        String path = "D:\\Idea_WorkSpace\\Project_web4\\out\\artifacts\\Project_web4_war_exploded\\file\\test\\test_" + specialTag;
         File directory = new File(mQianZhuiPath);
@@ -259,7 +259,7 @@ public class MainProcess {
     }
 
     public void insertContent2ChachongPath(String sourcePath) {
-        String dirPath = "D:\\weizhuan\\去重\\处理";
+        String dirPath = "D:\\weizhuan_web\\去重\\处理";
         System.out.println("tomcat sorcepath~~~~:"+sourcePath);
         String[] ss = sourcePath.split("\\\\");
         String processPath = "";

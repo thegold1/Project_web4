@@ -35,7 +35,6 @@ public class TestCSV {
 //	        LocalDateTime localDateTime = LocalDateTime.now();
 //	        DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
 //            String filePath = "E:\\TestCsvDirectory"; //CSV文件路径
-//            String filePath = "D:\\weizhuan\\"; //CSV文件路径
 //	        String fileName = "CSV_"+ df.format(localDateTime) +".csv";//CSV文件名称
 //            String fileName = "CSV_" + "1.csv";//CSV文件名称
             String fileName = "test.csv";//CSV文件名称
