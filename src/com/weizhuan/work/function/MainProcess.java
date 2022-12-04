@@ -10,7 +10,7 @@ public class MainProcess {
     public int mLoopTimes = 0;
     public String mType = "";
 
-    public static String mQianZhuiPath = "";
+    public String mQianZhuiPath = "";
 
     List<String> needProduceList = new ArrayList<>();
     Set<String> needProduceSet = new HashSet<>();
@@ -19,47 +19,63 @@ public class MainProcess {
 
     public String mChachongResultPath = "";
 
+    // key = name, value = name.txt
+    public Map<String, String> mNameMap = new HashMap<>();
+
+    public Map<String, String> mNamePathMap = new HashMap<>();
+
+    public String specialTag = "";
+
     public static void main(String[] args) throws Exception {
         List<String> ls = new ArrayList<>();
-        ls.add("自媒体");
-        ls.add("抖音运营");
+        ls.add("apph5打开微信小程序");
+        ls.add("app带参数跳转小程序");
         MainProcess mainProcess = new MainProcess();
         mainProcess.startProcess(ls, "1");
     }
 
-    public static String get4RandomsString() {
+    public String get10RandomsString() {
         String s = "";
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 10; i++) {
             int j = getRandomNum(10);
             s += j;
         }
         return s;
     }
 
-    public static int getRandomNum(int i) {
+    public int getRandomNum(int i) {
         Random random = new Random();
         return random.nextInt(i);
     }
 
-    public void startProcess(List<String> ls, String type) throws Exception {
+    public boolean startProcess(List<String> ls, String type) throws Exception {
         mType = type;
         if (mLoopTimes >= 4) {
             System.out.println("tomcat xunhuan time over 3 times");
-            return;
+            return true;
         }
         System.out.println("tomcat xunhuan time :"+ mLoopTimes);
-//        List<String> ls = new ArrayList<>();
-//        ls.add("母婴店怎么用短视频做推广111");
-//        ls.add("母婴店怎么用短视频做推广222rrr");
-//        ls.add("母婴店怎么用短视频做推广333aaa");
 
-        String specialTag = "1234";
-//        String specialTag = get4RandomsString();
-//        List<String> needProduceList = new ArrayList<>();
-//        Set<String> needProduceSet = new HashSet<>();
-        for (String s: ls) {
-            needProduceList.add(s+".txt");
-            needProduceSet.add(s+".txt");
+//        String specialTag = "1234";
+        if ("".equals(specialTag)) {
+            specialTag = get10RandomsString();
+        }
+        for (int i = 0; i < ls.size(); i++) {
+            String s = ls.get(i);
+            if (s.contains(".txt")) {
+                int index = s.indexOf(".txt");
+                s = s.substring(0, index);
+                ls.set(i, s);
+            }
+        }
+        needProduceList.clear();
+        needProduceSet.clear();
+
+        for (String name: ls) {
+            String txtName = name + ".txt";
+            needProduceList.add(txtName);
+            needProduceSet.add(txtName);
+            mNameMap.put(name, txtName);
         }
 
         // 0 生成文件夹
@@ -73,72 +89,98 @@ public class MainProcess {
 //        System.out.println("tomcat path:"+csvPath);
 //
 //        // 1 生成CSV 文件
-//        TestCSV.startProcess(ls, qianzhuiPath);
+        TestCSV.startProcess(ls, mQianZhuiPath);
         // 2 走python脚本 生产 txt文件
-//        Set<String> notProductSet = pythonProduceTxt(qianzhuiPath,  needProduceSet);
-//        while (notProductSet.size() != 0) {
-//            if (mLoopTimes >= 4) {
-//                break;
-//            }
-//            mLoopTimes++;
-//            notProductSet = pythonProduceTxt(qianzhuiPath, notProductSet);
-//        }
-//        if (mLoopTimes >= 4 && notProductSet.size() != 0) {
-//            // 准备退出,说明生成失败
-//            System.out.println("tomcat mLoopTimes >= 4 notProductSet.size() != 0 ");
-//        }
-//        System.out.println("tomcat out of circle");
+        Set<String> notProductSet = pythonProduceTxt(mQianZhuiPath,  needProduceSet);
+        while (notProductSet.size() != 0) {
+            if (mLoopTimes >= 4) {
+                break;
+            }
+            mLoopTimes++;
+            notProductSet = pythonProduceTxt(mQianZhuiPath, notProductSet);
+        }
+        if (mLoopTimes >= 4 && notProductSet.size() != 0) {
+            // 准备退出,说明生成失败
+            System.out.println("tomcat mLoopTimes >= 4 notProductSet.size() != 0 ");
+        }
+        System.out.println("tomcat out of circle");
 
           // 3 查重
-//        String youhuaPath = mQianZhuiPath +"\\test";
-//        System.out.println("tomcat source path:"+youhuaPath);
-//        List<String> unSurvivalList = chachong(youhuaPath);
-//        if (unSurvivalList.size() == 0) {
-//            System.out.println("tomcat unsurvival list size == 0");
-//        } else {
-//            mLoopTimes++;
-//            System.out.println("tomcat prepare start process again");
-////            startProcess(unSurvivalList, type);
-//        }
-//        System.out.println("tomcat 333333 out");
-//        if (mLoopTimes >= 4) {
-//            return;
-//        }
+        String youhuaPath = mQianZhuiPath +"\\test";
+        System.out.println("tomcat source path:"+youhuaPath);
+        List<String> unSurvivalList = chachong(youhuaPath);
+        if (unSurvivalList.size() == 0) {
+            System.out.println("tomcat unsurvival list size == 0");
+        } else {
+            mLoopTimes++;
+            System.out.println("tomcat prepare start process again");
+            startProcess(unSurvivalList, type);
+        }
+        System.out.println("tomcat 333333 out");
+        if (mLoopTimes >= 4) {
+            return true;
+        }
 
         // 4 优化代码
         // a 复制
-//        String path1 = mQianZhuiPath + "\\test_chachong_result";
-//        String path2 = mQianZhuiPath +"\\test_youhua";
-//        copyFolder(path1, path2);
-        // b 优化
-//        Main.startProcess(path2);
-        // c 将 /test_youhua 结果 复制到 /test_youhua_result里面
-//        String path3 = mQianZhuiPath +"\\test_youhua_result";
-//        copyFolder(path2, path3);
-        // d
-//        List<String> youhuaUnSurvivalList = getYouhuaUnSurvivalList();
-//        if (youhuaUnSurvivalList.size() == 0) {
-//            System.out.println("tomcat youhua unsurvival list size == 0");
-//        } else {
-//            mLoopTimes++;
-//            startProcess(youhuaUnSurvivalList, type);
-//        }
-//
-//        if (mLoopTimes >= 4) {
-//            return;
-//        }
+        String path1 = mQianZhuiPath + "\\test_chachong_result";
+        String path2 = mQianZhuiPath +"\\test_youhua";
+        copyFolder(path1, path2);
+//         b 优化
+        Main.startProcess(path2);
+//         c 将 /test_youhua 结果 复制到 /test_youhua_result里面
+        String path3 = mQianZhuiPath +"\\test_youhua_result";
+        copyFolder(path2, path3);
+//         d
+        List<String> youhuaUnSurvivalList = getYouhuaUnSurvivalList();
+        if (youhuaUnSurvivalList.size() == 0) {
+            System.out.println("tomcat youhua unsurvival list size == 0");
+        } else {
+            mLoopTimes++;
+            startProcess(youhuaUnSurvivalList, type);
+        }
+
+        if (mLoopTimes >= 4) {
+            return true;
+        }
 
 
+        String youhuaresultPath = mQianZhuiPath + "\\test_youhua_result";
+        File processDirFile = new File(youhuaresultPath);
+        File[] processDirFiles = processDirFile.listFiles();
+        for (int i = 0; i < processDirFiles.length; i++) {
+            String fileName = processDirFiles[i].getName();
+            System.out.println("tomcat fileName:"+fileName);
+            String path = processDirFiles[i].getAbsolutePath();
+            System.out.println("tomcat path:"+path);
+            mNamePathMap.put(fileName, path);
+        }
+        return true;
+    }
 
-        // 5 todo 读取文件夹内容，拼装成对象返回
-          //  打包成zip文件 ？？
-//        ZipUtils.startProcess(youhuaPath);
+    public void deleteDirFiles(String path) {
+        File dir = new File(path);
+        if (dir == null) {
+            return;
+        }
+        File[] files = dir.listFiles();
+        if (files == null) {
+            return;
+        }
+        int len = files.length;
+        for (int i = len - 1; i >= 0; i--) {
+            if (files[i].exists()) {
+                files[i].delete();
+            }
+        }
     }
 
     public List<String> chachong(String sourcePath) throws Exception {
         // 1 复制 test --> test_chachong
         copyPath2Chachong(sourcePath);
-        // 2 在D:\weizhuan\去重\处理 新建txt文本 里面写上 text_chachong目录 todo 路径写法有问题 等下处理
+        // 2 删除text路径下面的文章
+        deleteDirFiles(sourcePath);
+        // 2 在D:\weizhuan\去重\处理 新建txt文本 里面写上 text_chachong目录
         insertContent2ChachongPath(sourcePath);
         // 3 轮询
         String chachongEndFlag = mQianZhuiPath + "\\chachong_end_flag";
@@ -238,7 +280,7 @@ public class MainProcess {
         insertContent2Path(txtNamePath, processPath);
     }
 
-    public static void insertContent2Path(String path, String content) {
+    public void insertContent2Path(String path, String content) {
 //        if (insertList == null || "".equals(path)) {
 //            return;
 //        }
@@ -281,7 +323,7 @@ public class MainProcess {
         System.out.println("tomcat target path:" + targetPath);
         mChachongPath = targetPath;
         mChachongResultPath = mChachongPath + "_result";
-//        copyFolder(sourcePath, targetPath);
+        copyFolder(sourcePath, targetPath);
     }
 
     public void copyFolder(String sourcePath,String targetPath) throws Exception {
@@ -343,7 +385,7 @@ public class MainProcess {
         int times = 0;
         boolean produceFlag = true;
         while (true) {
-            Thread.sleep(15000);
+            Thread.sleep(60000);
 //            Thread.sleep(30000);
             File file = new File(youhuaPath);
             if (file == null) {

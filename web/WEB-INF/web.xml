@@ -39,6 +39,28 @@
         <servlet-class>com.weizhuan.work.servlet.GetDataServlet5</servlet-class>
     </servlet>
 
+    <servlet>
+        <description>This is the description of my J2EE component</description>
+        <display-name>This is the display name of my J2EE component</display-name>
+        <servlet-name>GetDataServlet6</servlet-name>
+        <servlet-class>com.weizhuan.work.servlet.GetDataServlet6</servlet-class>
+    </servlet>
+
+    <servlet>
+        <description>This is the description of my J2EE component</description>
+        <display-name>This is the display name of my J2EE component</display-name>
+        <servlet-name>GetDataServlet7</servlet-name>
+        <servlet-class>com.weizhuan.work.servlet.GetDataServlet7</servlet-class>
+    </servlet>
+
+    <servlet>
+        <description>This is the description of my J2EE component</description>
+        <display-name>This is the display name of my J2EE component</display-name>
+        <servlet-name>GetDataServlet8</servlet-name>
+        <servlet-class>com.weizhuan.work.servlet.GetDataServlet8</servlet-class>
+    </servlet>
+
+
     <servlet-mapping>
         <servlet-name>GetDataServlet</servlet-name>
         <url-pattern>/getDataServlet</url-pattern>
@@ -64,4 +86,19 @@
         <url-pattern>/getDataServlet5</url-pattern>
     </servlet-mapping>
 
+    <servlet-mapping>
+        <servlet-name>GetDataServlet6</servlet-name>
+        <url-pattern>/getDataServlet6</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>GetDataServlet7</servlet-name>
+        <url-pattern>/getDataServlet7</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet-mapping>
+        <servlet-name>GetDataServlet8</servlet-name>
+        <url-pattern>/getDataServlet8</url-pattern>
+    </servlet-mapping>
 </web-app>

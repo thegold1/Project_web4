@@ -157,10 +157,10 @@ public class SimhashUtilMain {
 		String dirPath = "D:\\weizhuan\\去重\\处理";
 
 		while (true) {
-			System.out.println("tomcat sleep start");
+//			System.out.println("tomcat sleep start");
 			try {
 				Thread.sleep(30000);
-				System.out.println("tomcat sleep 30s");
+//				System.out.println("tomcat sleep 30s");
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

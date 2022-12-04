@@ -24,7 +24,8 @@ public class GetDataServlet8 extends HttpServlet {
 		String data = new String(request.getParameter("content"));
 
 		List<String> ls = new ArrayList<>();
-		String[] datas = data.split("~");
+//		String[] datas = data.split("~");
+		String[] datas = data.split("\\$");
 		for (String s: datas) {
 			ls.add(s);
 		}
@@ -32,19 +33,34 @@ public class GetDataServlet8 extends HttpServlet {
 		System.out.println("tomcat type2:"+type);
 
 		MainProcess mainProcess = new MainProcess();
-		try {
-			mainProcess.startProcess(ls, type);
-		} catch (Exception e) {
-			throw new RuntimeException(e);
+		int times = 0;
+		while(true) {
+			boolean flag = false;
+			try {
+				flag = mainProcess.startProcess(ls, type);
+			} catch (Exception e) {
+				throw new RuntimeException(e);
+			}
+			if (flag || times >= 10) {
+				break;
+			}
+			try {
+				times++;
+				Thread.sleep(60000);
+			} catch (Exception e) {
+
+			}
 		}
+
 		int count = 0;
 
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter writer = response.getWriter();
 		PaperBean bean = new PaperBean();
-		int size = mainProcess.mNameMap.size();
-		PaperBean.Data[] datass = new PaperBean.Data[size];
-		if (size == 0) {
+		int nameSize = mainProcess.mNameMap.size();
+		int namePathSize = mainProcess.mNamePathMap.size();
+		PaperBean.Data[] datass = new PaperBean.Data[nameSize];
+		if (nameSize < ls.size() || nameSize < ls.size()) {
 			bean.setResult(0);
 		} else {
 			bean.setResult(1);
@@ -54,6 +70,11 @@ public class GetDataServlet8 extends HttpServlet {
 				String nameTmp = elem.getKey();
 				String nameTxtTmp = elem.getValue();
 				String namePathTxt = mainProcess.mNamePathMap.get(nameTxtTmp);
+				if ("".equals(nameTmp) || "".equals(nameTxtTmp) || "".equals(namePathTxt)) {
+					datass = new PaperBean.Data[nameSize];
+					bean.setResult(0);
+					break;
+				}
 				String contentTmp = getPathContent(namePathTxt);
 				PaperBean.Data dataTmp = new PaperBean.Data();
 				dataTmp.setTitle(nameTmp);

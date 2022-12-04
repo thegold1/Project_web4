@@ -37,6 +37,8 @@ public class GetDataServlet5 extends HttpServlet {
 			throw new RuntimeException(e);
 		}
 
+
+
 //		String path = "\\file\\test\\test_" + "9527";
 //		String path = "D:\\Idea_WorkSpace\\Project_web4\\out\\artifacts\\Project_web4_war_exploded\\file\\test\\test_" + "9528";
 //		File directory = new File(path);
