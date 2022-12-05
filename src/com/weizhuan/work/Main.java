@@ -1,9 +1,6 @@
 package com.weizhuan.work;
 
-import com.weizhuan.work.simhash.SimhashUtil;
 import com.weizhuan.work.util.TxtUtils;
-import com.weizhuan.work.util.WordUtils;
-import com.weizhuan.work.util.XiaguoReadExcelToTxt;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -37,16 +34,11 @@ public class Main {
     }
 
     public static void start() throws Exception {
-        XiaguoReadExcelToTxt.readFirstLastPartSwitchPath(XiaguoReadExcelToTxt.FIRST_LAST_PART_SWITCH_PATH);
-        XiaguoReadExcelToTxt.readFirstPartPath(XiaguoReadExcelToTxt.FIRST_PART_PATH);
-        XiaguoReadExcelToTxt.readLastPartPath(XiaguoReadExcelToTxt.LAST_PART_PATH);
+
 //        TxtUtils.readPaperPath(TxtUtils.PAPER_PATH_CONFIG);
         TxtUtils.readConfig(TxtUtils.PAPER_MAX_MIN_CONFIG);
         TxtUtils.readReplaceConfig(TxtUtils.PAPER_REPLACEMENT_CONFIG);
         TxtUtils.readHead5CharReplaceConfig(TxtUtils.PAPER_HEAD_5_CHAR_REPLACEMENT_CONFIG);
-        WordUtils.readWordSaveConfig(WordUtils.PAPER_WORD_SAVE_PATH);
-        PicUtils.findPicDirList();
-        PicUtils.readInsertPicPath(PicUtils.READ_PIC_PATH);
 
         File file = new File(TxtUtils.mReadPaperPath);
         File[] files = file.listFiles();
@@ -105,11 +97,11 @@ public class Main {
             return;
         }
 
-        if (TxtUtils.isTitleContainSenWords(path)) {
-            File myObj = new File(path);
-            myObj.delete();
-            return;
-        }
+//        if (TxtUtils.isTitleContainSenWords(path)) {
+//            File myObj = new File(path);
+//            myObj.delete();
+//            return;
+//        }
 
         ArrayList<String> re = new ArrayList<String>();
         if (ls.size() == 0) {
@@ -182,77 +174,8 @@ public class Main {
 //        PicUtils.clear();
         if (isPaperValid(re)) {
             ArrayList<String> data = new ArrayList<String>();
-
-            boolean isFirstWord = true;
-            // 插入第一部分word
-            if (XiaguoReadExcelToTxt.isFirstPart) {
-                for (int i = 0; i < XiaguoReadExcelToTxt.mFirstPartList.size(); i++) {
-                    String excelOrPicPath = XiaguoReadExcelToTxt.mFirstPartList.get(i);
-                    System.out.println("tomcat excelOrPicPath:"+excelOrPicPath);
-                    if (excelOrPicPath.contains("xls") || excelOrPicPath.contains("xlsx")) {
-                        XiaguoReadExcelToTxt.mSaveExcelPath = XiaguoReadExcelToTxt.mFirstPartList.get(i);
-                        ArrayList<String> tmp1 = XiaguoReadExcelToTxt.readExcelToTxt();
-                        for (String s : tmp1) {
-                            data.add(s);
-                        }
-                        if (isFirstWord) {
-                            WordUtils.wordChaseData(path, tmp1, true);
-                            isFirstWord = false;
-                        } else {
-                            WordUtils.wordChaseData(path, tmp1, false);
-                        }
-                    } else {
-                        PicUtils.randomSelectOnePicFromDir(excelOrPicPath);
-                        if (isFirstWord) {
-                            PicUtils.insertPic(path, true);
-                            isFirstWord = false;
-                        } else {
-                            PicUtils.insertPic(path, false);
-                        }
-                    }
-                }
-            }
-
             for (String s : re) {
                 data.add(s);
-            }
-
-            // 插入第二部分word
-            ArrayList<ArrayList<String>> re1 = CommonUtils.splitIntoSeveralPieces(re);
-            System.out.println("tomcat re1 size:"+re1.size());
-
-            int count = 1;
-            for (ArrayList<String> re2 : re1) {
-                if (count == 1 && !XiaguoReadExcelToTxt.isFirstPart && isFirstWord) {
-                    WordUtils.wordChaseData(path, re2, true);
-                    isFirstWord = true;
-                } else {
-                    WordUtils.wordChaseData(path, re2, false);
-                }
-                if (XiaguoReadExcelToTxt.isOtherPic && count < re1.size()) {
-                    PicUtils.matchPicPath(re2);
-                    PicUtils.insertPic(path, false);
-                }
-                count++;
-            }
-
-            // 插入第三部分word
-            if (XiaguoReadExcelToTxt.isLastWordPart) {
-                for (int i = 0; i < XiaguoReadExcelToTxt.mLastPartList.size(); i++) {
-                    String excelOrPicPath = XiaguoReadExcelToTxt.mLastPartList.get(i);
-                    System.out.println("tomcat excelOrPicPath:"+excelOrPicPath);
-                    if (excelOrPicPath.contains("xls") || excelOrPicPath.contains("xlsx")) {
-                        XiaguoReadExcelToTxt.mSaveExcelPath = XiaguoReadExcelToTxt.mLastPartList.get(i);
-                        ArrayList<String> tmp1 = XiaguoReadExcelToTxt.readExcelToTxt();
-                        for (String s : tmp1) {
-                            data.add(s);
-                        }
-                        WordUtils.wordChaseData(path, tmp1, false);
-                    } else {
-                        PicUtils.randomSelectOnePicFromDir(excelOrPicPath);
-                        PicUtils.insertPic(path, false);
-                    }
-                }
             }
 
             // 插入txt

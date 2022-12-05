@@ -51,52 +51,6 @@ public class SimhashUtilMain {
 
 	public static String PAPER_LEN_PATH = QIAN_ZHUI + "缓存\\paper_len.txt";
 
-	public static void readPaperPath(String path) {
-		try {
-			File file = new File(path);
-			ArrayList<String> ls = new ArrayList<String>();
-
-			// if file doesn't exist, then create it
-			if (!file.exists()) {
-				file.createNewFile();
-			}
-
-			if ("".equals(TxtUtils.mCharSet)) {
-				TxtUtils.mCharSet = TxtUtils.getFileCharset(new File(path));
-			}
-
-			InputStreamReader reader = new InputStreamReader(
-					new FileInputStream(file), TxtUtils.mCharSet);
-
-			BufferedReader br = new BufferedReader(reader);
-
-			String line = "";
-			line = br.readLine();
-			if (line != null) {
-				ls.add(line);
-//                MAX_LEN = Integer.parseInt(line);
-//				mReadPaperPath = line;
-//                SimhashUtil.SHENG_CHENG_PATH = line;
-				String[] ss = line.split("\\\\");
-//                String[] ss = line.split("")
-				for (int i = 0; i < ss.length; i++) {
-					if ("".equals(ss[i])) {
-						continue;
-					}
-					if (i != ss.length - 1) {
-						SimhashUtil.PROCESS_DIR_PATH += ss[i] +"\\";
-					} else {
-						SimhashUtil.PROCESS_DIR_PATH += ss[i];
-					}
-				}
-
-                System.out.println("tomcat path:"+SimhashUtil.PROCESS_DIR_PATH);
-			}
-			br.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
 
 	public static List<String> readDirProcessPath(String dirPath) {
 		File processDirFile = new File(dirPath);

@@ -76,6 +76,11 @@ public class GetDataServlet8 extends HttpServlet {
 					break;
 				}
 				String contentTmp = getPathContent(namePathTxt);
+				if ("".equals(contentTmp)) {
+					datass = new PaperBean.Data[nameSize];
+					bean.setResult(0);
+					break;
+				}
 				PaperBean.Data dataTmp = new PaperBean.Data();
 				dataTmp.setTitle(nameTmp);
 				dataTmp.setContent(contentTmp);

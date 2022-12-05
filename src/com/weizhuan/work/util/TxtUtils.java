@@ -12,7 +12,7 @@ import java.util.List;
 public class TxtUtils {
 
     public static String WEI_ZHUAN_PREFIX = "D:\\weizhuan_web\\";
-    public static String PAPER_PATH_CONFIG = WEI_ZHUAN_PREFIX + "config\\paper_path_config.txt";
+//    public static String PAPER_PATH_CONFIG = WEI_ZHUAN_PREFIX + "config\\paper_path_config.txt";
     public static String mReadPaperPath = new String(WEI_ZHUAN_PREFIX+"test");
     public static String mCharSet = new String("");
     public static String SMALL_NUMBER = "0123456789";
@@ -21,8 +21,8 @@ public class TxtUtils {
     public static String SENSITIVE_WORDS_PATH = WEI_ZHUAN_PREFIX + "config\\sensitive_words.txt";
     public static List<String> SENSITIVE_WORDS = readTxt(SENSITIVE_WORDS_PATH);
     public static String PAPER_MAX_MIN_CONFIG = WEI_ZHUAN_PREFIX + "config\\paper_max_min_config.txt";
-    public static String TITLE_SENSITIVE_WORDS_PATH = WEI_ZHUAN_PREFIX + "config\\title_sensitive_words.txt";
-    public static List<String> TITLE_SENSITIVE_WORDS = readTxt(TITLE_SENSITIVE_WORDS_PATH);
+//    public static String TITLE_SENSITIVE_WORDS_PATH = WEI_ZHUAN_PREFIX + "config\\title_sensitive_words.txt";
+//    public static List<String> TITLE_SENSITIVE_WORDS = readTxt(TITLE_SENSITIVE_WORDS_PATH);
     public static int MAX_LEN = 900;
     public static int MIN_LEN = 450;
     public static String PAPER_REPLACEMENT_CONFIG = WEI_ZHUAN_PREFIX + "config\\paper_replacement.txt";
@@ -34,15 +34,15 @@ public class TxtUtils {
     //  第一步 第一、  等等
     public static String NUM_MARk_PATTERN = "，。！？,、.)步";
 
-    public static boolean isTitleContainSenWords(String s) {
-        for (String ss: TITLE_SENSITIVE_WORDS) {
-            if (s.contains(ss)) {
-                System.out.println("tomcat 文章标题："+s+" 包含关键词:"+ss + "，文章将被删除");
-                return true;
-            }
-        }
-        return false;
-    }
+//    public static boolean isTitleContainSenWords(String s) {
+//        for (String ss: TITLE_SENSITIVE_WORDS) {
+//            if (s.contains(ss)) {
+//                System.out.println("tomcat 文章标题："+s+" 包含关键词:"+ss + "，文章将被删除");
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
 
     public static void readPaperPath(String path) {
         try {
